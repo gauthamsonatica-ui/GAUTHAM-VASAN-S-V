@@ -1,0 +1,195 @@
+📊 Cross Market Analysis Project
+📌 Project Overview
+
+This project performs cross-market financial analysis by collecting, storing, and visualizing data from cryptocurrency markets, stock indices, and oil prices.
+It uses APIs, SQLite, and Streamlit to build an end-to-end data pipeline and interactive dashboard.
+
+Markets covered:
+
+Cryptocurrencies (Bitcoin, Ethereum, Tether, Top 250 coins)
+
+Stock Indices (S&P 500, NASDAQ, NIFTY 50)
+
+Oil Prices (WTI Crude)
+
+🧠 What This File Does (High-Level Flow)
+
+Fetches real-time & historical data from APIs
+
+Cleans and structures the data using Pandas
+
+Stores data in an SQLite database
+
+Builds a Streamlit web app for visualization & SQL analysis
+
+(Optional) Exposes the app using Cloudflare Tunnel
+
+📦 Libraries / Imports Used
+Library	Purpose
+requests	Fetch crypto data from CoinGecko API
+pandas	Data cleaning, transformation, analysis
+yfinance	Fetch stock market data
+sqlite3	Store structured data in SQLite database
+streamlit	Build interactive dashboard
+plotly	Data visualization
+datetime	Date handling
+time	API throttling
+subprocess	Run Cloudflare tunnel
+cloudflared	Public URL for Streamlit app
+🔄 Step-by-Step Explanation of the Code
+Step 1: Fetch Cryptocurrency Market Data
+
+Uses CoinGecko API
+
+Fetches top 250 cryptocurrencies
+
+Extracts:
+
+Price
+
+Market cap
+
+Rank
+
+Supply
+
+ATH / ATL
+
+Converts data into a Pandas DataFrame
+
+https://api.coingecko.com/api/v3/coins/markets
+
+Step 2: Fetch Crypto Historical Prices
+
+Retrieves 365 days of price data for:
+
+Bitcoin
+
+Ethereum
+
+Tether
+
+Converts timestamps to readable dates
+
+Step 3: Fetch Oil Price Data
+
+Source: GitHub open dataset (WTI Crude Oil)
+
+Filters data between 2020 – 2026
+
+Step 4: Fetch Stock Market Data
+
+Uses Yahoo Finance API via yfinance
+
+Indices:
+
+^GSPC → S&P 500
+
+^IXIC → NASDAQ
+
+^NSEI → NIFTY 50
+
+Data collected:
+
+Open
+
+High
+
+Low
+
+Close
+
+Volume
+
+Step 5: Store Data in SQLite Database
+
+Creates datascienceproject.db with tables:
+
+Table Name	Description
+cryptocurrencies	Crypto metadata
+crypto_prices	Historical crypto prices
+oil_prices	Oil prices
+stock_prices	Stock index prices
+combined_stocks_prices	Merged stock data
+Step 6: Streamlit Application
+
+The app provides:
+
+📊 Market Overview Dashboard
+
+🔍 SQL Query Runner
+
+🪙 Top 5 Crypto Deep-Dive
+
+📈 Interactive charts (Plotly)
+
+📥 CSV download options
+
+Run locally:
+
+streamlit run app.py
+
+Step 7 (Optional): Public URL with Cloudflare
+
+Exposes local Streamlit app to the internet:
+
+cloudflared tunnel --url http://localhost:8501
+
+🛠 How to Run This Project Locally
+1. Clone the Repository
+git clone https://github.com/yourusername/cross-market-analysis.git
+cd cross-market-analysis
+
+2. Install Dependencies
+pip install pandas requests yfinance streamlit plotly
+
+3. Run the Data Pipeline
+python cross_market_analysis.py
+
+
+This will:
+
+Fetch data
+
+Create the database
+
+Store all tables
+
+4. Run the Streamlit App
+streamlit run app.py
+
+📂 Recommended GitHub File Structure
+cross-market-analysis/
+│
+├── app.py
+├── cross_market_analysis.py
+├── datascienceproject.db
+├── requirements.txt
+├── README.md
+└── assets/
+
+📄 requirements.txt (Example)
+pandas
+requests
+yfinance
+streamlit
+plotly
+sqlite3
+
+🎯 Key Features
+
+✔ Real-time API integration
+✔ SQL-based analytics
+✔ Cross-market comparison
+✔ Interactive dashboards
+✔ Scalable database design
+
+🚀 Future Improvements
+
+Add more assets (Gold, Forex)
+
+Correlation analysis
+
+Automated refresh scheduler
+
+Docker deployment
